@@ -56,6 +56,14 @@ class DetailActivity : AppCompatActivity() {
         initBelowView()
     }
 
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        Log.v("aaa", "------onNewIntent------")
+        val iIntent = Intent()
+        iIntent.setClass(this, DetailActivity::class.java)
+        startActivity(iIntent)
+    }
+
     private fun getBundleData() {
 //        val mBundle: Bundle? = intent.extras
 //        if (mBundle != null) {
