@@ -196,7 +196,7 @@ class ListData {
             pKey = ""
         }
         return try {
-            mJsonObject!!.getString(pKey)
+            mJsonObject?.getString(pKey)
         } catch (e: JSONException) {
             e.printStackTrace()
             ""
