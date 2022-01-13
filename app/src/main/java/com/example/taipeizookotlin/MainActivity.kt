@@ -8,6 +8,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.RemoteViews
 import androidx.appcompat.app.AppCompatActivity
@@ -119,14 +121,15 @@ class MainActivity : AppCompatActivity() {
                     iData.setData(iz.getJSONObject(0))
                     iData.selectType(iApiSelectTitle, false)
                     iListData.add(iData)
-
-                    val iIntent = Intent()
-                    val iBundle = Bundle()
-                    iBundle.putString("TitleName", iApiSelectTitle)
-                    iBundle.putString("ListData", iListData[0].getRawData())
-                    iIntent.putExtras(iBundle)
-                    iIntent.setClass(this@MainActivity, DetailActivity::class.java)
-                    startActivity(iIntent)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        val iIntent = Intent()
+                        val iBundle = Bundle()
+                        iBundle.putString("TitleName", iApiSelectTitle)
+                        iBundle.putString("ListData", iListData[0].getRawData())
+                        iIntent.putExtras(iBundle)
+                        iIntent.setClass(this@MainActivity, DetailActivity::class.java)
+                        startActivity(iIntent)
+                    }, 250)
 
                 } catch (e: JSONException) {
                     e.printStackTrace()
@@ -145,6 +148,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
+        goToDetailPage("Animal", 5)
         Log.v("aaa","onNewIntent")
     }
 
